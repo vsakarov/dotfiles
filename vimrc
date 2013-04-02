@@ -27,13 +27,15 @@ endtry
 
 " Bundle: https://github.com/Lokaltog/vim-easymotion.git
 " Bundle: https://github.com/altercation/vim-colors-solarized
-" Bundle: https://github.com/bbommarito/vim-slim
+" Bundle: https://github.com/slim-template/vim-slim.git
 " Bundle: https://github.com/chrisbra/NrrwRgn
 " Bundle: https://github.com/ervandew/supertab
 " Bundle: https://github.com/godlygeek/tabular
 " Bundle: https://github.com/kchmck/vim-coffee-script
 " Bundle: https://github.com/kien/ctrlp.vim.git
 " Bundle: https://github.com/mileszs/ack.vim.git
+" Bundle: https://github.com/miripiruni/CSScomb-for-Vim.git
+" Bundle: https://github.com/rking/ag.vim
 " Bundle: https://github.com/scrooloose/nerdcommenter
 " Bundle: https://github.com/scrooloose/nerdtree
 " Bundle: https://github.com/scrooloose/syntastic.git
@@ -148,6 +150,8 @@ if v:version >= 703
   set backupcopy=yes         " keep attributes of original file
   set backupskip=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*
   set directory=~/.vim/swap,~/tmp,. " keep swp files under ~/.vim/swap
+
+  set cryptmethod=blowfish
 endif
 
 "default indent settings
@@ -266,7 +270,11 @@ nmap <leader>t :CommandTFlush<cr>:CommandT<cr>
 nmap <leader>bt :CommandTBuffer<cr>
 
 " snipmate
-let g:snippets_dir = "~/.vim/snippets"
+let g:snippets_dir = "$HOME/.vim/snippets"
+
+" YankRing
+let g:yankring_history_dir = '$HOME/.vim/'
+nmap <leader>y :YRShow<CR>
 
 " set complete=.,w,b,u
 

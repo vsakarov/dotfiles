@@ -26,8 +26,8 @@ endtry
 " Bundle: tpope/vim-pathogen
 
 " Bundle: https://github.com/Lokaltog/vim-easymotion.git
+" Bundle: https://github.com/airblade/vim-gitgutter
 " Bundle: https://github.com/altercation/vim-colors-solarized
-" Bundle: https://github.com/slim-template/vim-slim.git
 " Bundle: https://github.com/chrisbra/NrrwRgn
 " Bundle: https://github.com/ervandew/supertab
 " Bundle: https://github.com/godlygeek/tabular
@@ -40,6 +40,7 @@ endtry
 " Bundle: https://github.com/scrooloose/nerdtree
 " Bundle: https://github.com/scrooloose/syntastic.git
 " Bundle: https://github.com/sjl/gundo.vim
+" Bundle: https://github.com/slim-template/vim-slim.git
 " Bundle: https://github.com/tpope/vim-abolish
 " Bundle: https://github.com/tpope/vim-endwise
 " Bundle: https://github.com/tpope/vim-fugitive
@@ -243,8 +244,10 @@ set laststatus=2
 
 " Ack
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-nmap <leader>a :Ack<space>
-nmap <leader>aa :Ack<space>
+nmap <leader>a :Ack ''<left>
+nmap <leader>aa :Ack ''<left>
+nmap <leader>ai :Ack -i ''<left>
+nmap <leader>aw :Ack -i ''
 
 " CtrlP
 let g:ctrlp_map = '<leader>f'
@@ -435,3 +438,5 @@ nmap <leader>rtp :CommandTFlush<cr>\|:CommandT public<cr>
 nmap <leader>rts :CommandTFlush<cr>\|:CommandT app/assets/stylesheets<cr>
 nmap <leader>rtj :CommandTFlush<cr>\|:CommandT app/assets/javascripts<cr>
 nmap <leader>rta :CommandTFlush<cr>\|:CommandT app/assets<cr>
+
+autocmd FileType ruby setlocal makeprg=rubocop\ -s\ --emacs\ %

@@ -39,3 +39,5 @@ export PATH=$HOME/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/u
 export ZSHRC=1
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 __rvm_project_rvmrc
+
+unsetopt correct_all

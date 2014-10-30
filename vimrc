@@ -1,17 +1,6 @@
 set nocompatible
 let mapleader=","
 
-" some dirty hacks in order rvm to work
-if isdirectory(expand('~/.rvm'))
-  if executable('zsh')
-    set shell=zsh\ -i
-  else
-    set shell=sh
-  endif
-  let g:ruby_path = expand('~/.rvm/rubies/default/bin"')
-  let $PATH = g:ruby_path . ':' . $PATH " this one is for syntastic
-endif
-
 try
   runtime bundle/vim-pathogen/autoload/pathogen.vim
   call pathogen#infect()
@@ -25,30 +14,45 @@ endtry
 " mkdir -p ~/.vim/swap
 " Bundle: tpope/vim-pathogen
 
+" Bundle: https://github.com/AndrewRadev/splitjoin.vim.git
+" Bundle: https://github.com/AndrewRadev/vim-eco
 " Bundle: https://github.com/Lokaltog/vim-easymotion.git
-" Bundle: https://github.com/airblade/vim-gitgutter
+" Bundle: https://github.com/MarcWeber/vim-addon-mw-utils.git
+" Bundle: https://github.com/Shougo/neomru.vim
+" Bundle: https://github.com/Shougo/unite-outline
+" Bundle: https://github.com/Shougo/unite.vim
+" Bundle: https://github.com/Shougo/vimproc.vim
 " Bundle: https://github.com/altercation/vim-colors-solarized
+" Bundle: https://github.com/cakebaker/scss-syntax.vim.git
 " Bundle: https://github.com/chrisbra/NrrwRgn
+" Bundle: https://github.com/csscomb/csscomb-for-vim.git
 " Bundle: https://github.com/ervandew/supertab
-" Bundle: https://github.com/godlygeek/tabular
+" Bundle: https://github.com/garbas/vim-snipmate
+" Bundle: https://github.com/honza/vim-snippets
+" Bundle: https://github.com/jakar/vim-AnsiEsc
 " Bundle: https://github.com/kchmck/vim-coffee-script
 " Bundle: https://github.com/kien/ctrlp.vim.git
+" Bundle: https://github.com/mattn/emmet-vim
 " Bundle: https://github.com/mileszs/ack.vim.git
-" Bundle: https://github.com/miripiruni/CSScomb-for-Vim.git
+" Bundle: https://github.com/nathanaelkane/vim-indent-guides.git
 " Bundle: https://github.com/rking/ag.vim
+" Bundle: https://github.com/rstacruz/sparkup.git
 " Bundle: https://github.com/scrooloose/nerdcommenter
 " Bundle: https://github.com/scrooloose/nerdtree
 " Bundle: https://github.com/scrooloose/syntastic.git
 " Bundle: https://github.com/sjl/gundo.vim
-" Bundle: https://github.com/slim-template/vim-slim.git
+" Bundle: https://github.com/slim-template/vim-slim
+" Bundle: https://github.com/tommcdo/vim-exchange
+" Bundle: https://github.com/tomtom/tlib_vim.git
 " Bundle: https://github.com/tpope/vim-abolish
+" Bundle: https://github.com/tpope/vim-dispatch.git
 " Bundle: https://github.com/tpope/vim-endwise
 " Bundle: https://github.com/tpope/vim-fugitive
 " Bundle: https://github.com/tpope/vim-git
 " Bundle: https://github.com/tpope/vim-rails
 " Bundle: https://github.com/tpope/vim-rake
+" Bundle: https://github.com/tpope/vim-rbenv
 " Bundle: https://github.com/tpope/vim-repeat
-" Bundle: https://github.com/tpope/vim-rvm.git
 " Bundle: https://github.com/tpope/vim-surround
 " Bundle: https://github.com/tpope/vim-unimpaired.git
 " Bundle: https://github.com/vexxor/zenburn.vim.git
@@ -81,21 +85,12 @@ endtry
 "" Bundle: https://github.com/vim-scripts/delimitMate.vim.git
 "" Bundle: https://github.com/vim-scripts/jQuery
 
-" Bundle: https://github.com/garbas/vim-snipmate
-"" Bundle: https://github.com/honza/snipmate-snippets.git
-" Bundle: https://github.com/MarcWeber/vim-addon-mw-utils.git
-" Bundle: https://github.com/tomtom/tlib_vim.git
-
-" Bundle: https://github.com/wincent/Command-T.git
-"" BundleCommand: cd Command-T && rvm system exec rake make
-"" TODO: Bundle: https://github.com/hallettj/jslint.vim
-
 " NO PLUGIN SETUP
 " ===============
 
+set hidden
 set autoread
 set autowrite
-set hidden
 nnoremap <C-Tab> :bnext<CR>
 nnoremap <C-S-Tab> :bprevious<CR>
 "nmap <leader>q :bdelete<CR>
@@ -164,7 +159,7 @@ set autoindent
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*/tmp/*,*/coverage/*,*/.git/*
+set wildignore+=*/tmp/*,*/coverage/*,*/.git/*,*/node_modules/*
 set wildignore+=*.gem,coverage/**,log/**,.git,tags,*.rbc,*.ttf,*.eot
 
 set tags+=tmp/tags
@@ -212,9 +207,9 @@ endif
 " set statusline+=%#error#
 " set statusline+=%{StatuslineTabWarning()}
 " set statusline+=%*
-" 
+"
 " set statusline+=%{StatuslineTrailingSpaceWarning()}
-" 
+"
 " set statusline+=%{StatuslineLongLineWarning()}
 
 if exists('SyntasticStatuslineFlag')
@@ -238,16 +233,14 @@ set statusline+=\ %P    "percent through file
 set laststatus=2
 
 
-
 " PLUGIN SETUP
 " ============
 
-" Ack
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-nmap <leader>a :Ack ''<left>
-nmap <leader>aa :Ack ''<left>
-nmap <leader>ai :Ack -i ''<left>
-nmap <leader>aw :Ack -i ''
+" The Silver Searcher
+nmap <leader>a :Ag ''<left>
+nmap <leader>aa :Ag ''<left>
+nmap <leader>ai :Ag -i ''<left>
+nmap <leader>aw :Ag ''
 
 " CtrlP
 let g:ctrlp_map = '<leader>f'
@@ -260,6 +253,7 @@ autocmd FileType rb,coffee,haml,sass autocmd BufWritePre <buffer> :%s/\s\+$//e
 " NERDCommenter
 nmap <leader>/ <Plug>NERDCommenterToggle
 vmap <leader>/ <Plug>NERDCommenterToggle
+let NERDSpaceDelims = 1
 
 " NERDTree
 nmap <leader>nf :NERDTreeFind<cr>
@@ -279,13 +273,17 @@ let g:snippets_dir = "$HOME/.vim/snippets"
 let g:yankring_history_dir = '$HOME/.vim/'
 nmap <leader>y :YRShow<CR>
 
+" splitjoin
+nmap sj :SplitjoinSplit<cr>
+nmap sk :SplitjoinJoin<cr>
+
 " set complete=.,w,b,u
 
 " GUI SETTINGS
 " ============
 if has("gui_running")
   set guioptions-=T " hide toolbar
-  set lines=55 columns=100
+  set lines=55 columns=150
 
   try
     colorscheme solarized
@@ -393,13 +391,11 @@ nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
 " Create a mapping (e.g. in your .vimrc) like this:
 "nmap <C-W>! <Plug>Kwbd
 nmap <leader>bd <Plug>Kwbd
-nmap <leader>d <Plug>Kwbd
 nmap <leader>q <Plug>Kwbd
 
 " move up and down
 nmap <C-j> <C-d>
 nmap <C-k> <C-u>
-
 
 " execute current line
 "nmap <leader>el "lyy@l
@@ -439,4 +435,9 @@ nmap <leader>rts :CommandTFlush<cr>\|:CommandT app/assets/stylesheets<cr>
 nmap <leader>rtj :CommandTFlush<cr>\|:CommandT app/assets/javascripts<cr>
 nmap <leader>rta :CommandTFlush<cr>\|:CommandT app/assets<cr>
 
-autocmd FileType ruby setlocal makeprg=rubocop\ -s\ --emacs\ %
+let g:syntastic_ruby_checkers=['ruby', 'rubocop']
+let g:syntastic_coffee_checkers=['coffee', 'coffeelint']
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_scss_scss_lint_args = '-x SortedProperties,CapitalizationInSelector,NameFormat'
+
+autocmd BufWinEnter * if line2byte(line("$") + 1) > 1000000 | syntax clear | endif

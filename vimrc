@@ -23,6 +23,7 @@ endtry
 " Bundle: https://github.com/Shougo/unite.vim
 " Bundle: https://github.com/Shougo/vimproc.vim
 " Bundle: https://github.com/altercation/vim-colors-solarized
+" Bundle: https://github.com/basyura/unite-rails
 " Bundle: https://github.com/cakebaker/scss-syntax.vim.git
 " Bundle: https://github.com/chrisbra/NrrwRgn
 " Bundle: https://github.com/csscomb/csscomb-for-vim.git
@@ -55,12 +56,12 @@ endtry
 " Bundle: https://github.com/tpope/vim-repeat
 " Bundle: https://github.com/tpope/vim-surround
 " Bundle: https://github.com/tpope/vim-unimpaired.git
+" Bundle: https://github.com/tsukkee/unite-tag
 " Bundle: https://github.com/vexxor/zenburn.vim.git
 " Bundle: https://github.com/vim-ruby/vim-ruby
 " Bundle: https://github.com/vim-scripts/Align
 " Bundle: https://github.com/vim-scripts/YankRing.vim
 " Bundle: https://github.com/vim-scripts/a.vim.git
-" Bundle: https://github.com/vim-scripts/bufexplorer.zip
 " Bundle: https://github.com/vim-scripts/matchit.zip.git
 " Bundle: https://github.com/vim-scripts/taglist.vim.git
 "" Bundle: https://github.com/astashov/vim-ruby-debugger
@@ -262,9 +263,27 @@ nmap <leader>nt :NERDTreeToggle<cr>
 " easymotion
   let g:EasyMotion_leader_key = '<Leader>m'
 
-" Command T
-nmap <leader>t :CommandTFlush<cr>:CommandT<cr>
-nmap <leader>bt :CommandTBuffer<cr>
+" Unite
+let g:unite_data_directory = $HOME.'/tmp/vim/unite/'
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <leader>uf :Unite -start-insert file_rec/async<cr>
+nnoremap <leader>b :Unite buffer<cr>
+nnoremap <leader>ub :Unite bookmark<cr>
+nnoremap <leader>ur :Unite file_mru<cr>
+nnoremap <leader>uo :Unite outline<cr>
+nnoremap <space>o :Unite -start-insert outline<cr>
+let g:unite_source_history_yank_enable = 1
+nnoremap <space>y :Unite history/yank<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 " snipmate
 let g:snippets_dir = "$HOME/.vim/snippets"

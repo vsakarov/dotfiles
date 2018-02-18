@@ -323,10 +323,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq powerline-default-separator nil)
   (setq helm-dash-browser-func 'eww)
-  (super-save-mode +1)
+  (super-save-mode t)
   (setq super-save-auto-save-when-idle t)
-  (editorconfig-mode 1)
+  (add-to-list 'spacemacs--diminished-minor-modes '(super-save-mode "💾" "ss"))
+  (editorconfig-mode t)
+  (add-to-list 'spacemacs--diminished-minor-modes '(editorconfig-mode " ⓔ" "EC"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

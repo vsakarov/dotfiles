@@ -505,6 +505,7 @@ before packages are loaded."
   (add-to-list 'spacemacs--diminished-minor-modes '(super-save-mode "🖫" "ss"))
   (editorconfig-mode t)
   (add-to-list 'spacemacs--diminished-minor-modes '(editorconfig-mode " ⓔ" "EC"))
+  ;; org-tempo is used for <s snippet
   (require 'org-tempo)
   ;; https://www.reddit.com/r/emacs/comments/43vfl1/enable_wordwrap_in_orgmode/czl98d4/
   (add-hook 'org-mode-hook #'(lambda ()
@@ -512,8 +513,13 @@ before packages are loaded."
                                ;; to press C-c q  or fill-paragraph ever again!
                                (visual-line-mode)
                                ;; (org-indent-mode)
-                               (prefer-coding-system 'utf-8)
                                ))
+  (setq-default buffer-file-coding-system 'utf-8-unix)
+  (set-language-environment 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-locale-environment "bg_BG.UTF-8")
+  (prefer-coding-system 'utf-8)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  home.packages = with pkgs; [ ag fd file fzf ripgrep ];
+  home.packages = with pkgs; [ silver-searcher fd file fzf ripgrep ];
   programs.bat.enable = true;
   programs.htop.enable = true;
 

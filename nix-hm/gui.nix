@@ -15,7 +15,7 @@
       emacs
       firefox
       gnome.gnome-tweaks
-      gnome.meld
+      meld
       joplin-desktop
       keepass
       languagetool

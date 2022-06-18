@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   home.packages = with pkgs; [ silver-searcher fd file fzf ripgrep ];
   programs.bat.enable = true;
   programs.htop.enable = true;
@@ -52,6 +52,15 @@
   };
   home.file.".zsh_custom/themes/aussiegeek-zwsp.zsh-theme".source =
     ../aussiegeek-zwsp.zsh-theme;
+
+  # https://github.com/nix-community/home-manager/blob/master/modules/programs/gitui.nix
+  programs.gitui = {
+    enable = true;
+    keyConfig = lib.strings.fileContents (builtins.fetchGit {
+      url = "https://github.com/extrawurst/gitui/";
+      rev = "70ce3f88d69e5f7fcdc03837f3115ee91943dbd1";
+    } + "/vim_style_key_config.ron");
+  };
 
   programs.tmux = {
     enable = true;
@@ -120,6 +129,10 @@
 
       # Select last command output, depend on shell setting up zero-width space
       bind -T prefix v copy-mode \; send -N 2 -X search-backward ' ' \; send-keys -N 2 -X cursor-down \; send-keys -X select-line \; send -X search-forward ' ' \; send-keys -X cursor-up
+      # https://waylonwalker.com/tmux-start-application/
+      # bind -n M-t split-window htop \; swap-pane -U
+      bind t popup -E -h 95% -w 95% -x 100% "htop"
+      bind g split-window -c '#{pane_current_path}' 'gitui'\; resize-pane -Z;
     '';
     # bind r source-file ${config.xdg.configFile."tmux/tmux.conf"}
   };

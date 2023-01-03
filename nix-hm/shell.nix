@@ -20,6 +20,7 @@
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
+    history.ignoreSpace = true;
     oh-my-zsh = {
       enable = true;
       plugins = [
@@ -34,7 +35,7 @@
         "pass"
         "tmux"
       ];
-      theme = "aussiegeek-zwsp";
+      theme = "powerlevel10k/powerlevel10k";
       custom = "$HOME/.zsh_custom/";
       extraConfig = ''
         COMPLETION_WAITING_DOTS="true"
@@ -49,9 +50,23 @@
       j = "jump";
       o = "xdg-open";
     };
+    dirHashes = {
+      docs = "$HOME/Documents";
+      dl = "$HOME/Downloads";
+    };
+    localVariables = {
+      EDITOR = "${pkgs.spacevim}/bin/spacevim";
+      POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD = true;
+    };
   };
-  home.file.".zsh_custom/themes/aussiegeek-zwsp.zsh-theme".source =
-    ../aussiegeek-zwsp.zsh-theme;
+  home.file.".zsh_custom/p10k.zsh".source = ../p10k.zsh;
+  home.file.".zsh_custom/themes/powerlevel10k" = {
+    source = builtins.fetchGit {
+      url = "https://github.com/romkatv/powerlevel10k";
+      ref = "master";
+    };
+    recursive = true;
+  };
 
   # https://github.com/nix-community/home-manager/blob/master/modules/programs/gitui.nix
   programs.gitui = {
@@ -128,7 +143,7 @@
       bind -n M-9 select-window -t 9
 
       # Select last command output, depend on shell setting up zero-width space
-      bind -T prefix v copy-mode \; send -N 2 -X search-backward ' ' \; send-keys -N 2 -X cursor-down \; send-keys -X select-line \; send -X search-forward ' ' \; send-keys -X cursor-up
+      bind -T prefix v copy-mode \; send -N 2 -X search-backward '╭' \; send-keys -N 2 -X cursor-down \; send-keys -X select-line \; send -X search-forward '╭' \; send-keys -X cursor-up
       # https://waylonwalker.com/tmux-start-application/
       # bind -n M-t split-window htop \; swap-pane -U
       bind t popup -E -h 95% -w 95% -x 100% "htop"

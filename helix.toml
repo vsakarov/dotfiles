@@ -1,0 +1,58 @@
+theme = "monokai"
+
+# https://docs.helix-editor.com/configuration.html
+[editor]
+mouse = true
+auto-save = true
+
+[keys.normal]
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+"0" = "goto_line_start"
+"$" = "goto_line_end"
+"G" = "goto_file_end"
+"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
+"#" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_prev"]
+# "*" = ["select_textobject_inner w", "search_selection", "search_next"]
+
+[keys.normal.Z]
+"Q" = ":quit!"
+"Z" = ":write-quit"
+
+[keys.normal.space]
+"space" = "command_palette"
+";" = "toggle_comments"
+"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "global_search"]
+"tab" = "goto_last_accessed_file"
+
+[keys.normal.space.b]
+"b" = "buffer_picker"
+"d" = ":buffer-close"
+"D" = ":buffer-close!"
+"n" = "goto_next_buffer"
+"p" = "goto_previous_buffer"
+"r" = ":reload"
+"s" = ":new"
+
+[keys.normal.space.e]
+"l" = "workspace_diagnostics_picker"
+"n" = "goto_next_diag"
+"p" = "goto_prev_diag"
+"g" = "goto_first_diag"
+"G" = "goto_last_diag"
+
+[keys.normal.space.s]
+"s" =  "symbol_picker"
+"l" =  "last_picker"
+
+[keys.normal.space.p]
+"b" = "buffer_picker"
+"f" = "file_picker"
+"h" = "file_picker"
+
+[keys.normal.space.f]
+"f" = "file_picker_in_current_buffer_directory"
+
+[keys.normal.space.f.e]
+"d" = ":config-open"
+"R" = ":config-reload"
